@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    /// Запрет на назад
     return WillPopScope(
         child: WebViewWidget(
           controller: _controller,

@@ -16,10 +16,19 @@ void main() async {
       );
   final storage = FlutterSecureStorage(aOptions: _getAndroidOptions());
   final uu = await storage.read(key: 'url');
+
+  /// Если у нас нет url или она пуста, запрашиваем у удаленного фаербейс конфига
+  /// После получения ссылки, создаем условие для проверки, если
+  /// ссылка пустая, бренд смартфона гугл или эмулятор, тогда
+  /// открывается заглушка.
+  ///
   if (uu == null) {
     final url = remoteConfig.getString('url');
     storage.write(key: 'url', value: url);
-  }
+  } else if (uu.isEmpty) {
+    final url = remoteConfig.getString('url');
+    storage.write(key: 'url', value: url);
+  } else {}
 }
 
 class MainApp extends StatelessWidget {
