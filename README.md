@@ -1,3 +1,3 @@
 # vigilant_spork
 
-A new Flutter project.
+Идеальный проект, созданный мною.
