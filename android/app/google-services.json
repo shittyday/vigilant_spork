@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "708141145325",
+    "project_id": "vigilant-spork-8eaec",
+    "storage_bucket": "vigilant-spork-8eaec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708141145325:android:ecec97565d518b7477c0e4",
+        "android_client_info": {
+          "package_name": "com.mygitsite.vigilant_spork"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708141145325-sm9ol6rlb5pdvhlcb3bmggq8ubasf8n0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mygitsite.vigilant_spork",
+            "certificate_hash": "c7210702209ee0a973f8008c212885d11de59a74"
+          }
+        },
+        {
+          "client_id": "708141145325-u9b8m0hiq8mnf9k24rtrpl1fauir4mfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrxmIemHa7ijrRWqjNVqiq516T1uU208M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708141145325-u9b8m0hiq8mnf9k24rtrpl1fauir4mfr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

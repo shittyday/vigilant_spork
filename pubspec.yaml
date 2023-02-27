@@ -1,14 +1,19 @@
 name: vigilant_spork
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.0+1
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
 
 dependencies:
+  firebase_analytics: ^10.1.4
+  firebase_core: ^2.7.0
+  firebase_remote_config: ^3.0.13
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^8.0.0
+  webview_flutter: ^4.0.5
 
 dev_dependencies:
   flutter_test:
