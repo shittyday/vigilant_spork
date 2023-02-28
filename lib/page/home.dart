@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final String url;
+  const Home({
+    super.key,
+    required this.url,
+  });
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  late final url = widget.url;
   late WebViewController _controller;
   WebViewCookieManager cookieManager = WebViewCookieManager();
   @override
@@ -23,7 +28,7 @@ class _HomeState extends State<Home> {
         onPageStarted: (url) {},
         onWebResourceError: (error) {},
       ))
-      ..loadRequest(Uri.parse('https://google.com'));
+      ..loadRequest(Uri.parse(url));
   }
 
   @override
