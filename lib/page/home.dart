@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -15,28 +16,58 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late final url = widget.url;
   late WebViewController _controller;
-  WebViewCookieManager cookieManager = WebViewCookieManager();
+  final cookieManager = WebViewCookieManager();
+  bool loading = true;
   @override
   void initState() {
-    super.initState();
     const params = PlatformWebViewControllerCreationParams();
     _controller = WebViewController.fromPlatformCreationParams(params)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (progress) {},
-        onPageFinished: (url) {},
-        onPageStarted: (url) {},
-        onWebResourceError: (error) {},
+        onPageFinished: (url) {
+          setState(() {
+            loading = false;
+          });
+        },
+        onPageStarted: (url) async {
+          cookieManager.setCookie(WebViewCookie(
+              name: 'expires',
+              value: DateFormat().format(DateTime.now().toUtc()),
+              domain: Uri.parse(url).host));
+          cookieManager.setCookie(WebViewCookie(
+              name: 'path',
+              value: DateFormat().format(DateTime.now().toUtc()),
+              domain: Uri.parse(url).path));
+          setState(() {
+            loading = true;
+          });
+        },
+        onWebResourceError: (error) {
+          setState(() {
+            loading = false;
+          });
+        },
       ))
       ..loadRequest(Uri.parse(url));
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     /// Запрет на назад
     return WillPopScope(
-        child: WebViewWidget(
-          controller: _controller,
+        child: Stack(
+          children: [
+            Positioned.fill(
+                child: WebViewWidget(
+              controller: _controller,
+            )),
+            if (loading)
+              const Center(
+                child: CircularProgressIndicator(),
+              )
+          ],
         ),
         onWillPop: () async {
           _controller.goBack();

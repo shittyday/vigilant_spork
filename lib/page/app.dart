@@ -1,6 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:vigilant_spork/page/service_page.dart';
+import 'package:vigilant_spork/page/service_pages/service_page.dart';
 import 'package:vigilant_spork/utils/condition.dart';
 import 'package:vigilant_spork/utils/database.dart';
 import 'package:vigilant_spork/utils/internet_check.dart';
