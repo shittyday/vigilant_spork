@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
   late final url = widget.url;
   late WebViewController _controller;
   final cookieManager = WebViewCookieManager();
+  bool isFirstinit = true;
   bool loading = true;
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (progress) {},
         onPageFinished: (url) {
+          isFirstinit = false;
           setState(() {
             loading = false;
           });
@@ -57,18 +59,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     /// Запрет на назад
     return WillPopScope(
-        child: Stack(
-          children: [
-            Positioned.fill(
-                child: WebViewWidget(
-              controller: _controller,
-            )),
-            if (loading)
-              const Center(
-                child: CircularProgressIndicator(),
-              )
-          ],
-        ),
+        child: isFirstinit
+            ? const SizedBox.expand()
+            : Stack(
+                children: [
+                  Positioned.fill(
+                      child: WebViewWidget(
+                    controller: _controller,
+                  )),
+                  if (loading)
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                ],
+              ),
         onWillPop: () async {
           _controller.goBack();
           return false;

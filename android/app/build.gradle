@@ -55,7 +55,7 @@ android {
         applicationId "com.mygitsite.vigilant_spork"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -79,6 +79,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'com.mygitsite.vigilant_spork'
 }
 
 flutter {

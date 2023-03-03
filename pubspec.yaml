@@ -1,7 +1,7 @@
 name: vigilant_spork
 description: Vigilant spork project.
 publish_to: 'none'
-version: 0.1.2+21
+version: 0.2.0+alpha
 
 environment:
   sdk: '>=2.19.2 <3.0.0'

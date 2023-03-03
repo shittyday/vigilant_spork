@@ -15,7 +15,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   PageType? pageType;
   Object? _error;
 
@@ -23,10 +23,40 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+    _firebaseRemoteConfigMethod();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        checkInternet.then((value) {
+          if (!mounted) return;
+          if (value) return;
+          setState(() {
+            pageType = connectionResultType(value);
+          });
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  void _firebaseRemoteConfigMethod() {
     remConf().then((value) {
       boostrap().then((value) {
         if (!mounted) return;
@@ -43,7 +73,6 @@ class _AppState extends State<App> {
       if (!mounted) return;
       setState(() {});
     });
-    super.didChangeDependencies();
   }
 
   Future<void> remConf() async {
@@ -96,7 +125,7 @@ class _AppState extends State<App> {
         return ErrorWidget(Exception(_error));
       case PageType.needConnect:
         return const Center(
-          child: Text('For application working need internet connection'),
+          child: Text('For working application need internet connection'),
         );
       case PageType.webView:
         return SafeArea(

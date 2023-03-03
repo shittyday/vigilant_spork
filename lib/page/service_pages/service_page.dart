@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vigilant_spork/api/news/repository/repository.dart';
 import 'package:vigilant_spork/page/service_pages/quiz/service_quiz_page.dart';
 import 'package:vigilant_spork/utils/internet_check.dart';
+
+import 'news/service_news_page.dart';
 
 class ServicePage extends StatefulWidget {
   const ServicePage({super.key});
@@ -37,32 +40,20 @@ class _ServicePageState extends State<ServicePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onPopPage: (route, result) => route.didPop(result),
-      pages: [
-        if (loading)
-          const MaterialPage(
-              key: _circularProgressKey,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ))
-        else if (connection)
-          const MaterialPage(
-            key: _serviceQuizKey,
-            child: ServiceQuizPage(),
+    return loading
+        ? const Center(
+            key: _circularProgressKey,
+            child: CircularProgressIndicator(),
           )
-        // ),
-        // const MaterialPage(
-        //     key: _serviceNewsKey,
-        //     child: ServiceNewsPage(
-        //       repository: Repository(),
-        //     ))
-        else
-          const MaterialPage(
-            key: _serviceQuizKey,
-            child: ServiceQuizPage(),
-          ),
-      ],
-    );
+        : connection
+            ? const Material(
+                child: ServiceNewsPage(
+                  key: _serviceNewsKey,
+                  repository: Repository(),
+                ),
+              )
+            : const ServiceQuizPage(
+                key: _serviceQuizKey,
+              );
   }
 }
