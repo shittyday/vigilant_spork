@@ -5,8 +5,9 @@ import 'package:vigilant_spork/api/news/model/status.dart';
 import 'package:vigilant_spork/api/news/repository/repository_interface.dart';
 import 'package:vigilant_spork/widgets/article_element.dart';
 
-const _apiKey = String.fromEnvironment('apiKey',
-    defaultValue: '11013e94672b470d8beab32eca30f1e6');
+const _apiKey = String.fromEnvironment(
+  'apiKey',
+);
 
 class ServiceNewsPage extends StatelessWidget {
   const ServiceNewsPage({
