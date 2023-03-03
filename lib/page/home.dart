@@ -39,8 +39,8 @@ class _HomeState extends State<Home> {
               domain: Uri.parse(url).host));
           cookieManager.setCookie(WebViewCookie(
               name: 'path',
-              value: DateFormat().format(DateTime.now().toUtc()),
-              domain: Uri.parse(url).path));
+              value: Uri.parse(url).path,
+              domain: Uri.parse(url).host));
           setState(() {
             loading = true;
           });
